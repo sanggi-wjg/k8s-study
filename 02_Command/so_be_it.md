@@ -1,6 +1,7 @@
 
 # so be it
 
+* https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/
 
 ## k3d
 * https://k3d.io/stable/usage/commands/k3d/
@@ -13,6 +14,8 @@ k3d cluster create demo --agents 2 \
                         --port 80:80@loadbalancer \
                         --port 443:443@loadbalancer \
                         --servers 2
+
+k3d cluster edit demo --port-add 30001:3001@loadbalancer
 
 k3d cluster start demo
 k3d cluster stop demo

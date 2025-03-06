@@ -8,6 +8,7 @@ spec:
     app: nginx
   ports:
     - protocol: TCP
-      port: 3555
-      targetPort: 80
-  type: LoadBalancer
+      port: 80        
+      targetPort: 80  
+      nodePort: 30004
+  type: NodePort
