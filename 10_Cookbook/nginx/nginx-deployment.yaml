@@ -1,7 +1,7 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: demo-nginx
+  namespace: nginx-namespace
   name: nginx-deployment
 spec:
   replicas: 2
@@ -13,8 +13,24 @@ spec:
       labels:
         app: nginx
     spec:
+      volumes:
+        - name:  nginx-config-map-volume
+          configMap:
+            name: nginx-config-map
+        
       containers:
       - name: nginx
-        image: nginx:lastest
+        image: nginx:1.27.4
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name:  nginx-config-map-volume
+            mountPath: /etc/nginx/conf.d/fake.conf
+            subPath: fake.conf
