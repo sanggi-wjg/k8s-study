@@ -1,0 +1,9 @@
+adminUser: "admin"  
+adminPassword: "admin" 
+
+grafana:
+  dashboards:
+    redis:
+      gnetId: 763
+      revision: 1
+      datasource: Prometheus 

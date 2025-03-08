@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  redis-deployment
+  namespace: redis-namespace
+  labels:
+    app:  storage
+spec:
+  replicas: 2  # 이 배포에서 실행할 Pod의 복제본 수를 2개로 설정합니다.
+  selector:
+    matchLabels:
+      app:  storage  # 이 배포가 선택할 Pod의 레이블을 지정합니다. 여기서는 'app' 레이블이 'storage'인 Pod를 선택합니다.
+  template:
+    metadata:
+      labels:
+        app:  storage  # 생성될 Pod에 'app' 레이블을 'storage'로 설정합니다.
+    spec:
+      containers:
+      - name:  redis-container
+        image:  redis:latest
+        ports:
+        - containerPort: 6379
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "200Mi"
+            cpu: "150m"      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  redis-service
+  namespace: redis-namespace
+  annotations:
+    service.kubernetes.io/description: "Redis Cluster IP service"
+spec:
+  selector:
+    app:  storage
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379
