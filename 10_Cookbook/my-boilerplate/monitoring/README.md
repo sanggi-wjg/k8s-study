@@ -27,8 +27,6 @@ helm upgrade --install redis-exporter prometheus-community/prometheus-redis-expo
   --wait
 
 helm uninstall redis-exporter -n monitoring
-
-curl redis-exporter-prometheus-redis-exporter.monitoring.svc:9121/metrics
 ```
 
 kubectl get configmap prometheus-prometheus-kube-prometheus-prometheus-rulefiles-0 -n monitoring -o yaml
@@ -47,8 +45,22 @@ helm repo update
 helm upgrade --install grafana grafana/grafana \
     --namespace monitoring \
     -f monitoring/grafana-values.yaml \
-    -- plugin 
     --wait
 
 helm uninstall grafana -n monitoring
+```
+
+### Grafana datasource
+TODO: values로...
+
+#### Prometheus
+* http://prometheus-server.monitoring.svc
+
+#### Redis-datasource
+* redis://redis-service.redis-namespace.svc:6379
+
+```
+curl redis-exporter-prometheus-redis-exporter.monitoring.svc:9121/metrics
+curl prometheus-prometheus-pushgateway.monitoring.svc:9091/metrics
+curl prometheus-server.monitoring.svc:9090
 ```

@@ -6,14 +6,14 @@ metadata:
   labels:
     app:  storage
 spec:
-  replicas: 2  # 이 배포에서 실행할 Pod의 복제본 수를 2개로 설정합니다.
+  replicas: 2  
   selector:
     matchLabels:
-      app:  storage  # 이 배포가 선택할 Pod의 레이블을 지정합니다. 여기서는 'app' 레이블이 'storage'인 Pod를 선택합니다.
+      app:  storage  
   template:
     metadata:
       labels:
-        app:  storage  # 생성될 Pod에 'app' 레이블을 'storage'로 설정합니다.
+        app:  storage
     spec:
       containers:
       - name:  redis-container

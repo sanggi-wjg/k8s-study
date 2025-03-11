@@ -1,9 +1,18 @@
 adminUser: "admin"  
 adminPassword: "admin" 
 
-grafana:
-  dashboards:
-    redis:
-      gnetId: 763
-      revision: 1
-      datasource: Prometheus 
+# plugins: 
+#   - redis-datasource
+
+# dashboardProviders:
+#   dashboardproviders.yaml:
+#     apiVersion: 1
+#     providers:
+#       - name: 'Redis dashboard'
+#         orgId: 11835
+#         folder: ''
+#         type: file
+#         disableDeletion: false
+#         editable: true
+#         options:
+#           path: /var/lib/grafana/dashboards/default

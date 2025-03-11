@@ -1,7 +1,4 @@
 # https://artifacthub.io/packages/helm/prometheus-community/prometheus
-grafana:
-  enabled: false
-
 server:
   global:
     scrape_interval: 15s
