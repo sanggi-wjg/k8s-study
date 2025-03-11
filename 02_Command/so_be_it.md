@@ -41,12 +41,5 @@ kubectl delete ns [namespace name]
 
 ### Helm
 ```sh
-kubectl create namespace grafana-namespace
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
-
-helm install grafana grafana/grafana \
-    --namespace grafana-namespace \
-    -f values.yaml \
-    --wait
+helm ls --all-namespaces
 ```

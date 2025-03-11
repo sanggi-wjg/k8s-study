@@ -1,8 +1,12 @@
+# https://artifacthub.io/packages/helm/prometheus-community/prometheus
+grafana:
+  enabled: false
+
 server:
   global:
     scrape_interval: 15s
-
-  scrape_configs:
-    - job_name: "redis-exporter-0"
-      static_configs:
-        - targets: ["redis-exporter-prometheus-redis-exporter.prometheus-namespace.svc:9121"]
+  
+extraScrapeConfigs: |
+  - job_name: "redis-exporter-0"
+    static_configs:
+      - targets: ["redis-exporter-prometheus-redis-exporter.monitoring.svc:9121"]
