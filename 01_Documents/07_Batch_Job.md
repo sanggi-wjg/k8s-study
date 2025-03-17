@@ -8,7 +8,6 @@ Kubernetes에서 **일반적인 서비스(Pod)**는 계속 실행되는 형태�
 - 정기적 백업 작업
 
 
-
 ## 표현식
 ```yaml
 apiVersion: batch/v1
@@ -24,6 +23,11 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: ["echo", "Hello Kubernetes!"]
-      
+        command: ["echo", "Hello Kubernetes!"]   
 ```
+
+## Deployment/ReplicaSet vs Batch Job
+![alt text](.images/07_1.png)
+
+- 작업이 끝나면 자동 종료되므로 불필요한 리소스 사용을 방지 
+- Batch Job은 실패한 경우 자동 재시도(backoffLimit 설정 가능) 기능 제공
