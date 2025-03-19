@@ -8,6 +8,7 @@ openapi/**/target/
 openapi/**/out/
 .DS_Store
 **/local
+**/__pycache__
 
 ### STS ###
 .apt_generated

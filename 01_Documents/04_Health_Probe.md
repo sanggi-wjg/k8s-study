@@ -25,14 +25,14 @@ kind: Pod
 ...
 spec:
   containers:
-     ...
-     livenessProbe:
-       httpGet:                  # 정상상태 점검
-         path: /actutator/health
-         port: 8080
-       initialDeaplySeconds: 30  # 딜레이 시간
-       periodSeconds: 5          # 이후 5초마다 검사
-       failureThreshold: 3       # 3번 연속 실패 시 컨테이너 재시작
+    ...
+    livenessProbe:
+      httpGet:                  # 정상상태 점검
+        path: /actutator/health
+        port: 8080
+      initialDeaplySeconds: 30  # 딜레이 시간
+      periodSeconds: 5          # 이후 5초마다 검사
+      failureThreshold: 3       # 3번 연속 실패 시 컨테이너 재시작
 ```
 > [!WARNING]
 > 정상상태 점검에서 통과하지 못하면 컨테이너를 재시작 한다.  
