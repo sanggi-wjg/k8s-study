@@ -4,16 +4,16 @@ metadata:
   name:  redis-deployment
   namespace: redis-namespace
   labels:
-    app:  storage
+    app: storage
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  storage  
+      app: storage  
   template:
     metadata:
       labels:
-        app:  storage
+        app: storage
     spec:
       containers:
       - name:  redis-container

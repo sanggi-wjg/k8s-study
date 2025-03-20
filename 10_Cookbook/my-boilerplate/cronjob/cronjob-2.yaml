@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cronjob-2
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: multi-container-cronjob
+  namespace: cronjob-2
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: main-container
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "메인 작업 실행"; sleep 10
+          - name: helper-container
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "보조 작업 실행"; sleep 5
+          - name: log-collector
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "로그 수집 중"; sleep 2

@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cronjob
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: resource-balanced-cronjob
+  namespace: cronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: main-container
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "메인 작업 실행"; sleep 30
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+            
+          - name: helper-container
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "보조 작업 실행"; sleep 20
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "50m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+
+          - name: log-collector
+            image: busybox:1.28
+            command:
+            - /bin/sh
+            - -c
+            - date; echo "로그 수집 중"; sleep 10
+            resources:
+              requests:
+                memory: "32Mi"
+                cpu: "25m"
+              limits:
+                memory: "64Mi"
+                cpu: "50m"
