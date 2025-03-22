@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cronjob
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: locust-cronjob
+  namespace: cronjob
+spec:
+  schedule: "*/10 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          activeDeadlineSeconds: 240
+          containers:
+          - name: locust-container
+            image: girr311/locust-app:latest
+            command: ["sh", "-c", "locust -f main.py --host http://fastapi-app-service.application.svc:8000 --headless --users 100 --spawn-rate 0.5 --run-time 3m --stop-timeout 2s --only-summary"]

@@ -44,7 +44,7 @@ helm repo update
 
 helm upgrade --install grafana grafana/grafana \
     --namespace monitoring \
-    -f monitoring/grafana-values.yaml \
+    -f helm/grafana/values.yaml \
     --wait
 
 helm uninstall grafana -n monitoring

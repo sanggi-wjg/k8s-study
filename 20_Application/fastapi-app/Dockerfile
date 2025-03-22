@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
 
-COPY pyproject.toml poetry.lock* ./
-RUN poetry install --no-dev --no-interaction --no-ansi
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --no-interaction --no-ansi
 COPY . .
 
 EXPOSE 8000

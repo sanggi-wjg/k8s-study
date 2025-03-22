@@ -1,8 +1,8 @@
 adminUser: "admin"  
 adminPassword: "admin" 
 
-# plugins: 
-#   - redis-datasource
+plugins: 
+  - redis-datasource
 
 # dashboardProviders:
 #   dashboardproviders.yaml:

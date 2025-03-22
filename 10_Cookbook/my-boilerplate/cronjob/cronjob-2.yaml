@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cronjob-2
+  name: cronjob
 ---
 apiVersion: batch/v1
 kind: CronJob

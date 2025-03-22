@@ -4,7 +4,7 @@
 
 ```shell
 docker build -t girr311/locust-app .
-# docker run -d -p 8000:8000 girr311/locust-app
+# docker run -d girr311/locust-app
 
 docker login
 docker push girr311/locust-app:latest 
