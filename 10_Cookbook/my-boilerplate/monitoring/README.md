@@ -22,7 +22,7 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 
 helm upgrade --install redis-exporter prometheus-community/prometheus-redis-exporter \
-  --set redisAddress="redis://redis-service.redis-namespace.svc:6379" \
+  --set redisAddress="redis://redis-statefulset-0.redis-service.redis-namespace.svc.cluster.local:6379" \
   --namespace monitoring \
   --wait
 

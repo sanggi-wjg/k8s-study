@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name:  redis-deployment
+  name:  redis-statefulset
   namespace: redis-namespace
   labels:
     app: storage
 spec:
+  serviceName: redis-service
   replicas: 1
   selector:
     matchLabels:
@@ -16,8 +17,8 @@ spec:
         app: storage
     spec:
       containers:
-      - name:  redis-container
-        image:  redis:latest
+      - name: redis-container
+        image: redis:latest
         ports:
         - containerPort: 6379
         resources:
@@ -31,14 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name:  redis-service
+  name: redis-service
   namespace: redis-namespace
-  annotations:
-    service.kubernetes.io/description: "Redis Cluster IP service"
 spec:
+  clusterIP: None # Headless Service를 생성
   selector:
-    app:  storage
+    app: storage
   ports:
-  - protocol: TCP
+  - name: redis
     port: 6379
     targetPort: 6379
