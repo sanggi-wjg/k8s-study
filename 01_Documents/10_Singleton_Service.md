@@ -21,4 +21,63 @@ marp: true
 ## StatefulSet
 `StatefulSet`은 가용성보다는 일관성을 선호하고 엄격한 싱글톤을 보장하고 그에 따라 복잡성 존재한다.
 
-StatefulSet로 관리되는 싱글톤 pod은 단일 pod만 소유하고 지속적인 네트워크 식별이 가능하다. 이런 경우 `headless service`로 설정 하는게 좋다. (clusterIp: None, 서비스에 가상 IP가 없고 종단점 DNS record만 생성하여 사용)
+StatefulSet로 관리되는 싱글톤 pod은 단일 pod만 소유하고 지속적인 네트워크 식별이 가능하다.  
+이런 경우 `headless service`로 설정 하는게 좋다. (clusterIp: None, 서비스에 가상 IP가 없고 종단점 DNS record만 생성하여 사용)
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: redis-namespace
+spec:
+  clusterIP: None # Headless Service를 생성
+  selector:
+    app: storage
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+```
+
+---
+
+## PDB, PodDistruptionBudget
+사용자가 관리하는 애플리케이션의 가용성을 보장하기 위해 사용하는 섫정으로
+클러스터에서 노드 장애, 유지보수 작업(예: 롤링 업데이트, 수동 노드 삭제 등) 또는 기타 스케줄링 이벤트로 인해 애플리케이션이 과도하게 중단되지 않도록 보호한다. 애플리케이션이 특정 비율이나 수 아래로 절대 떨어지지 않아야 하는 경우 유용한 설정이다.
+
+- **MinAvailable**: 최소 가용 pod 수
+- **MaxUnavailable**: 최대 비가용 pod 수
+  - MinAvailable, MaxUnavailable 동시 설정은 불가능하다.
+- **Distruption**: pod이 종료되는 모든 경우(중단)
+- **Pod Selector**: 특정 그룹에만 적용 가능
+
+---
+<style scoped>section { font-size: 23px; }</style>
+
+### minAvailable
+```yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: web-app-pdb
+  namespace: web-namespace
+spec:
+  minAvailable: 2 # 최소 2개의 Pod는 항상 가용해야 함
+  selector:
+    matchLabels:
+      app: web-app # 이 라벨을 가진 Pod에만 적용
+```
+
+### maxUnavailable
+```yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: example-pdb
+spec:
+  maxUnavailable: 1 # 최대 1개의 Pod만 중단 가능
+  selector:
+    matchLabels:
+      app: example-app
+```
