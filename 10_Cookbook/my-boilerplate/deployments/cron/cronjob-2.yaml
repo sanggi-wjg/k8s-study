@@ -1,13 +1,8 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cronjob
----
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: multi-container-cronjob
-  namespace: cronjob-2
+  namespace: cronjob
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
