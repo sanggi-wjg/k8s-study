@@ -18,6 +18,11 @@ class MyController(
         return ResponseEntity.ok("Hello world")
     }
 
+    @GetMapping("/readiness")
+    fun readiness(): ResponseEntity<String> {
+        return ResponseEntity.ok("Pong")
+    }
+
     @GetMapping("/factorial")
     fun calc(): ResponseEntity<String> {
         val rand = Random.nextInt(1, 100)

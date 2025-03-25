@@ -19,7 +19,7 @@ class CacheService(
             redisTemplate.opsForValue().set(key, rand.toString(), 60, TimeUnit.SECONDS)
             rand.toString()
         }
-        return CacheResponseDto(key, value.toInt())
+        return CacheResponseDto(key, value)
     }
 }
 

@@ -11,15 +11,26 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-          # activeDeadlineSeconds: 480
+          activeDeadlineSeconds: 480
           containers:
-          - name: locust-container
+          - name: locust-fastapi
             image: girr311/locust-app:latest
             command: ["sh", "-c", "locust -f main.py --host http://fastapi-app-service.application.svc:8000 --headless --users 100 --spawn-rate 0.5 --run-time 3m --stop-timeout 2s --only-summary"]
             resources:
               requests:
-                memory: "128Mi"
+                memory: "200Mi"
                 cpu: "100m"
               limits:
-                memory: "256Mi"
+                memory: "300Mi"
+                cpu: "200m"
+          
+          - name: locust-springboot
+            image: girr311/locust-app:latest
+            command: ["sh", "-c", "locust -f main.py --host http://springboot-app-service.application.svc:8080 --headless --users 100 --spawn-rate 0.5 --run-time 3m --stop-timeout 2s --only-summary"]
+            resources:
+              requests:
+                memory: "200Mi"
+                cpu: "100m"
+              limits:
+                memory: "300Mi"
                 cpu: "200m"

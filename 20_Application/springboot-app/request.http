@@ -1,11 +1,14 @@
 ### GET Health
-GET http://localhost:8080/actuator/health
+GET http://localhost:8080/liveness
+
+### GET Health
+GET http://localhost:8080/readiness
 
 ### GET Metrics
-GET http://localhost:8080/actuator/metrics
+GET http://localhost:8080/metrics
 
 ### GET Prometheus
-GET http://localhost:8080/actuator/prometheus
+GET http://localhost:8080/prometheus
 
 ### GET factorial
 GET http://localhost:8080/factorial

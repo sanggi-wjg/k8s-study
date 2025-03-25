@@ -36,12 +36,11 @@ class MyLocustAppUser(FastHttpUser):
 
 @events.test_start.add_listener
 def on_test_start(environment: Environment, **kwargs):
-    color.green("Starting locust", bold=True)
+    color.green("Starting locust")
 
     def _check(url: str):
         response = requests.get(url)
-        response.raise_for_status()
-        color.yellow(response.json(), bold=True)
+        color.yellow(response.status_code, response.text, bold=True)
 
     _check(f"{environment.host}/readiness")
     _check(f"{environment.host}/liveness")
@@ -49,4 +48,4 @@ def on_test_start(environment: Environment, **kwargs):
 
 @events.test_stop.add_listener
 def on_test_stop(environment: Environment, **kwargs):
-    color.green("Stopping locust", bold=True)
+    color.green("Stopping locust")
