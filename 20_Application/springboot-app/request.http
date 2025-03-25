@@ -1,0 +1,14 @@
+### GET Health
+GET http://localhost:8080/actuator/health
+
+### GET Metrics
+GET http://localhost:8080/actuator/metrics
+
+### GET Prometheus
+GET http://localhost:8080/actuator/prometheus
+
+### GET factorial
+GET http://localhost:8080/factorial
+
+### GET cache
+GET http://localhost:8080/cache
