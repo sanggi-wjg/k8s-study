@@ -5,6 +5,9 @@ metadata:
   namespace: application
   labels:
     app: my-springboot-app
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: app=girr311/springboot-app
+    argocd-image-updater.argoproj.io/nginx.update-strategy: latest
 spec:
   replicas: 2
   strategy:
@@ -24,13 +27,13 @@ spec:
       - name: springboot-app-container
         image: girr311/springboot-app:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 8080
         envFrom:
         - secretRef:
             name: springboot-app-secret
         resources:
           requests:
-            memory: "100Mi"
+            memory: "50Mi"
             cpu: "50m"
           limits:
             memory: "500Mi"
@@ -38,6 +41,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /liveness
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
             port: 8080
           initialDelaySeconds: 15
           periodSeconds: 5

@@ -37,7 +37,7 @@ spec:
         #       optional: false
         resources:
           requests:
-            memory: "100Mi"
+            memory: "50Mi"
             cpu: "50m"
           limits:
             memory: "500Mi"
@@ -45,6 +45,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
             port: 8000
           initialDelaySeconds: 15
           periodSeconds: 5
