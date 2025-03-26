@@ -12,6 +12,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ```sh
 # port forwarding argocd-server(pod) 
 argocd admin initial-password -n argocd
+# 7PQwDSZ3M0tTjQEZ
 ```
 
 
@@ -19,3 +20,11 @@ argocd admin initial-password -n argocd
 ```sh
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 ```
+
+argocd app create springboot-app \
+  --repo https://github.com/sanggi-wjg/k8s-study \
+  --path 10_Cookbook/my-boilerplate/deployments/springboot-app/deployment.yaml \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default \
+  --sync-policy automated \
+  --auto-prune

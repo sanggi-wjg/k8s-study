@@ -7,7 +7,7 @@ metadata:
     app: my-springboot-app
   annotations:
     argocd-image-updater.argoproj.io/image-list: app=girr311/springboot-app
-    argocd-image-updater.argoproj.io/nginx.update-strategy: latest
+    argocd-image-updater.argoproj.io/nginx.update-strategy: newest-build
 spec:
   replicas: 2
   strategy:
@@ -27,7 +27,7 @@ spec:
       - name: springboot-app-container
         image: girr311/springboot-app:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
         envFrom:
         - secretRef:
             name: springboot-app-secret
