@@ -11,7 +11,7 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-          activeDeadlineSeconds: 480
+          activeDeadlineSeconds: 600
           containers:
           - name: locust-fastapi
             image: girr311/locust-app:latest
