@@ -3,7 +3,7 @@
 
 사용 예시:
 1. polling 서비스
-2. 단일 Consumerm (or application)
+2. 단일 Consumer (or application)
 
 > [!NOTE]
 > `replicas: 1`로 설정 되었다고 하나의 인스턴스 실행만을 보장하지는 않는다. (아마 Deployments?)
